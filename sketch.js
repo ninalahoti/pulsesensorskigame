@@ -1,4 +1,8 @@
-let serial;
+let demohrslider;
+let demotext;
+let demohr;
+let demobutton;
+
 let counter = 0;
 let introaudio;
 
@@ -41,7 +45,7 @@ function preload() {
   gameaudio.playMode("restart");
   introaudio = loadSound('introaudio.mp3');
   introaudio.playMode("restart");
-  introaudio.setVolume(0.7);
+  introaudio.setVolume(0.4);
   myanimations[0] = loadImage('animations/asleep.gif');
   myanimations[1] = loadImage('animations/sleepy.gif');
   myanimations[2] = loadImage('animations/neutral.gif');
@@ -79,75 +83,26 @@ function preload() {
 
 function setup() {
   createCanvas(600, 600);
-  // Instantiate our SerialPort object
-  serial = new p5.SerialPort();
-
-  // Let's list the ports available
-  let portlist = serial.list();
-
-  // Assuming our Arduino is connected, let's open the connection to it
-  // Change this to the name of your arduino's serial port
-  serial.open("/dev/tty.usbmodem142101");
-
-  // Register some callbacks
-
-  // When we connect to the underlying server
-  serial.on('connected', serverConnected);
-
-  // When we get a list of serial ports that are available
-  serial.on('list', gotList);
-
-  // When we some data from the serial port
-  serial.on('data', gotData);
-
-  // When or if we get an error
-  serial.on('error', gotError);
-
-  // When our serial port is opened and ready for read/write
-  serial.on('open', gotOpen);
-}
-
-// We are connected and ready to go
-function serverConnected() {
-    print("We are connected!");
-}
-
-// Got the list of ports
-function gotList(thelist) {
-  // theList is an array of their names
-  for (let i = 0; i < thelist.length; i++) {
-    // Display in the console
-    print(i + " " + thelist[i]);
-  }
-}
-
-// Connected to our serial device
-function gotOpen() {
-  print("Serial Port is open!");
-}
-
-// Ut oh, here is an error, let's log it
-function gotError(theerror) {
-  print(theerror);
-}
-
-// There is data available to work with from the serial port
-function gotData() {
-  let currentString = serial.readStringUntil("\r\n");
+  demobutton = createButton('DEMO BUTTON');
+  demobutton.addClass("myButtons");
+  demobutton.position(10, 540);
+  demobutton.mousePressed(function() {
+    buttonpressbool = true;
+  })
+  demotext = createDiv("DEMO HR:");
+  demotext.addClass("text");
+  demotext.position(232, 557);
+  demohrslider = createSlider(70, 100, 85, 1);
+  demohrslider.addClass("mySliders");
+  demohrslider.position(330, 557);
+  demohr = demohrslider.value();
 }
 
 function sortarduinodata() {
-  if (serial.available() > 0) {
-    let data = serial.read();
-    if (data == 1) {
-      buttonpressbool = true;
-    } else if (data > 1) {
-      heartrates.unshift(data);
-    }
-  }
   if (heartrates.length > 50) {
     heartrates.length = 40;
   }
+  heartrates.unshift(demohr);
 }
 
 function mybutton() {
@@ -295,7 +250,6 @@ function gameend() {
   mybutton();
 }
 
-
 function myaudio() {
   if (counter == 3) {
     if (gameaudio.isPlaying() == false) {
@@ -329,7 +283,9 @@ function draw() {
   statetimer = round((millis())/1000 - newstatetime, 2);
   textSize(12);
   textAlign(LEFT);
-  textFont('PressStart2P')
+  textFont('PressStart2P');
+  demohr = demohrslider.value();
+  text(str(demohr), 544, 560);
   text("THRESHOLD HR = " + str(hrthreshold), 10, 10);
   // text("ANIMATION # = " + str(animationindex), 275, 10);
   text("AVERAGE HR = " + str(averagehr), 10, 30);
@@ -369,7 +325,6 @@ function draw() {
       break;
 
     case 2:
-      imageindex = 0;
       instructions();
       starttime = round(millis()/1000, 2);
       newstatetime = round(millis()/1000, 2);
@@ -377,12 +332,10 @@ function draw() {
 
     case 3:
       buttonpressbool = false;
-      gameaudio.play();
       runskigame();
       break;
 
     case 4:
-      gameaudio.pause();
       gameend();
       starttime = round(millis()/1000, 2);
       newstatetime = round(millis()/1000, 2);
