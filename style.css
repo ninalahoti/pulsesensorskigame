@@ -1,0 +1,19 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+
+.editloading {
+  font-family: 'PressStart2P', cursive;
+  margin-left: 230px;
+  margin-top: 200px;
+}
+
+p {
+  font-family: 'PressStart2P', cursive;
+}
