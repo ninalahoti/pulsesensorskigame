@@ -8,12 +8,67 @@ canvas {
 }
 
 
+p {
+  font-family: 'PressStart2P', cursive;
+}
+
 .editloading {
   font-family: 'PressStart2P', cursive;
   margin-left: 230px;
   margin-top: 200px;
 }
 
-p {
+.text {
   font-family: 'PressStart2P', cursive;
+  font-size: 12px;
+}
+
+.myButtons {
+  font-family: 'PressStart2P', cursive;
+  font-size: 12px;
+  height: 50px;
+  width: 200px;
+  border-style: solid;
+  border-color: black;
+  border-width: 4px;
+}
+
+.myButtons:hover {
+  background-color: #b8b8b8;
+  color: white;
+}
+
+.myButtons:active {
+  background-color: black;
+  color: #ffeb38;
+  border-color: #ffeb38;
+}
+
+.mySliders {
+  parent: body;
+  position: relative;
+  top: 14px;
+  width: 200px;
+  height: 4px;
+  background-color: black;
+  -webkit-appearance: none;
+}
+
+.mySliders:focus {
+  outline: none;
+}
+
+.mySliders::-webkit-slider-runnable-track {
+  width: 100px;
+}
+
+.mySliders::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  background: black;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border-style: solid;
+  border-color: black;
+  border-width: 1.3px;
 }
