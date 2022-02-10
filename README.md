@@ -1,8 +1,10 @@
 
 # PULSE SENSOR SKI GAME
 A game exploring the duality of sound and heart rate as input
+
 Made as part of the course Currents: Playful Prototyping taught by Jason Li in the Art, Media & Technology department at Parsons School of Design
 
+A playable demo is available <a href="https://ninalahoti.com/skigame/">here</a>.
 
 ## **CONTEXT**
 
