@@ -1,3 +1,4 @@
+![skibanner](https://user-images.githubusercontent.com/71244080/153326078-b5efc474-209c-4b8b-9635-4084d909984c.gif)
 
 # PULSE SENSOR SKI GAME
 A game exploring the duality of sound and heart rate as input
